@@ -29,3 +29,7 @@ spring:
           uri: lb://CATALOG-SERVICE #등록된 MicroService 이름
           predicates: # 조건절과 같은 의미
             - Path=/catalog-service/** #Path 정보를 지정
+        - id: order-service
+          uri: lb://ORDER-SERVICE #등록된 MicroService 이름
+          predicates: # 조건절과 같은 의미
+            - Path=/order-service/** #Path 정보를 지정

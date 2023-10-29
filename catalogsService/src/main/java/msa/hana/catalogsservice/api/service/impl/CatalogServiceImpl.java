@@ -18,14 +18,9 @@ public class CatalogServiceImpl implements CatalogService {
     private final CatalogRepository catalogRepository;
     @Override
     public List<CatalogResponse> getCatalogs() {
-        List<CatalogResponse> result = new ArrayList<>();
-
-        List<CatalogResponse> catalogs = catalogRepository.findAll()
+        return catalogRepository.findAll()
                 .stream()
                 .map(CatalogResponse::of).toList();
-        result.addAll(catalogs);
-
-        return result;
 
     }
 }

@@ -5,7 +5,7 @@ server:
 
 spring:
   application:
-    name: user-service
+    name: order-service
 
   datasource:
     url: ${MYSQL_URL}
@@ -15,12 +15,12 @@ spring:
       driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
     open-in-view: false
     properties:
       hibernate:
-        # default_batch_fetch_size: 200
+      # default_batch_fetch_size: 200
 
 eureka:
   instance:
@@ -31,5 +31,3 @@ eureka:
     service-url:
       defaultZone: http://127.0.0.1:8761/eureka
 
-greeting:
-  message: Welcome to the Simple E-commerce
