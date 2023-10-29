@@ -53,10 +53,10 @@ public class UserServiceImpl implements UserService {
     public List<UserResponse> getUsers() {
         List<UserResponse> result = new ArrayList<>();
 
-        List<UserAccount> users = userRepository.findAll();
-        users.stream()  // 사용자 리스트를 스트림으로 변환
-                .map(UserResponse::of) // 각 사용자 정보를 UserResponse로 변환
-                .forEach(result::add); // 변환된 결과를 results 리스트에 추가
+        List<UserResponse> users = userRepository.findAll().stream()  // 사용자 리스트를 스트림으로 변환
+                .map(UserResponse::of).toList();  // 각 사용자 정보를 UserResponse로 변환
+
+        result.addAll(users);
 
         return result;
     }

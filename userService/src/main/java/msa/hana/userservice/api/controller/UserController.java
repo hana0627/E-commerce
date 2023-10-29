@@ -1,6 +1,5 @@
 package msa.hana.userservice.api.controller;
 
-import msa.hana.userservice.api.domain.UserAccount;
 import msa.hana.userservice.api.dto.request.UserCreate;
 import msa.hana.userservice.api.dto.response.UserResponse;
 import msa.hana.userservice.api.dto.response.UserResponseData;
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
