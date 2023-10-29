@@ -2,6 +2,7 @@ package msa.hana.userservice.api.service.impl;
 
 import msa.hana.userservice.api.domain.UserAccount;
 import msa.hana.userservice.api.dto.request.UserCreate;
+import msa.hana.userservice.api.dto.response.UserResponse;
 import msa.hana.userservice.api.repository.UserRepository;
 import msa.hana.userservice.api.service.UserService;
 import msa.hana.userservice.global.config.security.CustomPasswordEncoder;
@@ -9,6 +10,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Transactional(readOnly = true)
@@ -38,5 +42,22 @@ public class UserServiceImpl implements UserService {
         UserAccount savedUser = userRepository.save(userAccount);
         return savedUser.getId();
 
+    }
+
+    public UserResponse findUser(String userId) {
+        return UserResponse.of(userRepository.findByUserId(userId)
+                .orElseThrow(EntityNotFoundException::new));
+    }
+
+    @Override
+    public List<UserResponse> getUsers() {
+        List<UserResponse> result = new ArrayList<>();
+
+        List<UserAccount> users = userRepository.findAll();
+        users.stream()  // 사용자 리스트를 스트림으로 변환
+                .map(UserResponse::of) // 각 사용자 정보를 UserResponse로 변환
+                .forEach(result::add); // 변환된 결과를 results 리스트에 추가
+
+        return result;
     }
 }
