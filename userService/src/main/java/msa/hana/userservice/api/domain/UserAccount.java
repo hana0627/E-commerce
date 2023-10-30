@@ -22,15 +22,15 @@ public class UserAccount {
     @Column(nullable = false, length = 50)
     private String name;
     @Column(nullable = false)
-    private String encryptedPassword;
+    private String password;
 
 
     @Builder
-    public UserAccount(String userId, String email, String name, String encryptedPassword) {
+    public UserAccount(String userId, String email, String name, String password) {
         this.userId = userId;
         this.email = email;
         this.name = name;
-        this.encryptedPassword = encryptedPassword;
+        this.password = password;
     }
 
 }

@@ -17,7 +17,12 @@ public class SecurityConfig {
                 .csrf(c -> c.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+//                        .antMatchers("/users/**").authenticated()
                         .antMatchers("/users/**").permitAll()
+                )
+                .formLogin(login -> login
+                        .loginPage("/login")
+                        .permitAll() // 로그인 페이지는 누구나 접근 가능
                 )
                 .build();
 

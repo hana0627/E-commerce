@@ -21,10 +21,42 @@ spring:
             preLogger: true
             postLogger: true
       routes:
+#        - id: user-service
+#          uri: lb://USER-SERVICE #등록된 MicroService 이름
+#          predicates: # 조건절과 같은 의미
+#            - Path=/user-service/** #Path 정보를 지정
+
+        - id: user-service
+          uri: lb://USER-SERVICE #등록된 MicroService 이름
+          predicates: # 조건절과 같은 의미 
+            - Path=/user-service/login #로그인
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie #POST 요청이 들어오면 헤더값을 삭제(새로운 요청처럼 인식하기 위함)
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+
         - id: user-service
           uri: lb://USER-SERVICE #등록된 MicroService 이름
           predicates: # 조건절과 같은 의미
-            - Path=/user-service/** #Path 정보를 지정
+            - Path=/user-service/users #회원가입
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie #POST 요청이 들어오면 헤더값을 삭제(새로운 요청처럼 인식하기 위함)
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+
+
+        - id: user-service
+          uri: lb://USER-SERVICE #등록된 MicroService 이름
+          predicates: # 조건절과 같은 의미
+            - Path=/user-service/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie #POST 요청이 들어오면 헤더값을 삭제(새로운 요청처럼 인식하기 위함)
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+
+
+
+
         - id: catalog-service
           uri: lb://CATALOG-SERVICE #등록된 MicroService 이름
           predicates: # 조건절과 같은 의미

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Transactional(readOnly = true)
@@ -37,7 +38,7 @@ public class UserServiceImpl implements UserService {
                 .name(requestDto.name())
                 .userId(UUID.randomUUID().toString())
                 .email(requestDto.email())
-                .encryptedPassword(passwordEncoder.encode(requestDto.password()))
+                .password(passwordEncoder.encode(requestDto.password()))
                 .build();
         UserAccount savedUser = userRepository.save(userAccount);
         return savedUser.getId();
@@ -47,6 +48,11 @@ public class UserServiceImpl implements UserService {
     public UserResponse findUser(String userId) {
         return UserResponse.of(userRepository.findByUserId(userId)
                 .orElseThrow(EntityNotFoundException::new));
+    }
+
+    @Override
+    public Optional<UserAccount> findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     @Override
