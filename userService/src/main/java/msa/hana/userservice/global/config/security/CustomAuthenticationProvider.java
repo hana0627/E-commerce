@@ -28,6 +28,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         log.info("[CustomAuthenticationProvider] authentication : {}", authentication);
+        log.info("[CustomAuthenticationProvider] authentication : {}", authentication.getName());
+        log.info("[CustomAuthenticationProvider] authentication : {}", authentication.getCredentials().toString());
         String username = authentication.getName();
         String password = authentication.getCredentials().toString();
         WebAuthenticationDetails details = (WebAuthenticationDetails) authentication.getDetails();

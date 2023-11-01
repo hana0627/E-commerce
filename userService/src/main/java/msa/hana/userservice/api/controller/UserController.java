@@ -40,6 +40,7 @@ public class UserController {
 
     @PostMapping("/users")
     public ResponseEntity<UserResponseData> createUser(@RequestBody @Validated UserCreate requestDto) {
+        System.out.println("UserController.createUser");
         Long id = userService.createUser(requestDto);
 
         UserResponseData userResponseData = UserResponseData.of("UserCreated Success!", id);
@@ -53,6 +54,7 @@ public class UserController {
 
     @GetMapping("/users")
     public ResponseEntity<List<UserResponse>> users() {
+        System.out.println("UserController.users");
 
         List<UserResponse> result = userService.getUsers();
 
@@ -63,6 +65,7 @@ public class UserController {
 
     @GetMapping("/users/{userId}")
     public ResponseEntity<UserResponse> users(@PathVariable("userId") String userId) {
+        System.out.println("UserController.users");
 
         UserResponse result = userService.findUser(userId);
 
