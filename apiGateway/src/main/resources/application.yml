@@ -55,7 +55,14 @@ spring:
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
 
 
-
+        - id: user-service
+          uri: lb://USER-SERVICE #등록된 MicroService 이름
+          predicates: # 조건절과 같은 의미
+            - Path=/user-service/**
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie #POST 요청이 들어오면 헤더값을 삭제(새로운 요청처럼 인식하기 위함)
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
 
 
         - id: catalog-service

@@ -84,7 +84,7 @@ public class UserController {
                 .body(result);
     }
 
-//    @PostMapping("/aaa")
+//    @PostMapping("/login")
 //    public ResponseEntity<Map<String, String>> login(@RequestBody UserLogin requestDto) {
 //
 //        Map<String, String> map = new HashMap<>();

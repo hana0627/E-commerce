@@ -1,29 +1,27 @@
 package msa.hana.userservice.global.config.security;
 
-import msa.hana.userservice.global.config.security.filter.CustomAuthenticationFilter;
+import lombok.RequiredArgsConstructor;
+import msa.hana.userservice.global.config.security.filter.AuthenticationFilter;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationFilter;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
+@RequiredArgsConstructor
 @Configuration
 public class SecurityConfig {
 
-    private final AuthenticationSuccessHandler authenticationSuccessHandler;
-    private final AuthenticationProvider authenticationProvider;
-
-    public SecurityConfig(CustomAuthenticationSuccessHandler authenticationSuccessHandler, CustomAuthenticationProvider authenticationProvider) {
-        this.authenticationSuccessHandler = authenticationSuccessHandler;
-        this.authenticationProvider = authenticationProvider;
+    private final CustomAuthenticationProvider authenticationProvider;
+    private final AuthenticationConfiguration authenticationConfiguration;
+    @Bean
+    public AuthenticationManager authenticationManager() throws Exception{
+        return this.authenticationConfiguration.getAuthenticationManager();
     }
-
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -31,16 +29,19 @@ public class SecurityConfig {
                 .csrf(c -> c.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .antMatchers("/users/**").authenticated()
-//                        .antMatchers("/users/**").permitAll()
-                )
-                .formLogin(login -> login
-//                        .loginPage("/users/login")
-                        .successHandler(authenticationSuccessHandler)
-                        .permitAll() // 로그인 페이지는 누구나 접근 가능
+                        .antMatchers("/**").authenticated()
                 )
                 .authenticationProvider(authenticationProvider)
+                .addFilter(customAuthenticationFilter())
                 .build();
-
     }
+
+
+    @Bean
+    public AuthenticationFilter customAuthenticationFilter() throws Exception {
+            AuthenticationFilter filter = new AuthenticationFilter();
+            filter.setAuthenticationManager(authenticationManager());
+            return filter;
+    }
+
 }

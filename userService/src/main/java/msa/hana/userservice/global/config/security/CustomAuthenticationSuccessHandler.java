@@ -28,11 +28,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             System.out.println("u = " + u);
             // 비밀번호가 같다면 jwt 토큰 생성
 
-//            log.info("Authorization : {}", "Bearer " + token);
-//            response.addHeader("Authorization", "Bearer " + token);
-//            SecurityContextHolder.getContext().setAuthentication(authentication);
-//            response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
-//            response.setHeader("Location", "/home");
+
+
+
         }
     }
 }
