@@ -84,22 +84,5 @@ public class UserController {
                 .body(result);
     }
 
-//    @PostMapping("/login")
-//    public ResponseEntity<Map<String, String>> login(@RequestBody UserLogin requestDto) {
-//
-//        Map<String, String> map = new HashMap<>();
-//
-//
-//        UsernamePasswordAuthenticationToken authenticationToken
-//                = new UsernamePasswordAuthenticationToken(requestDto.email(), requestDto.password());
-//        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-//
-//        map.put("data", "success");
-//        return ResponseEntity
-//                .status(HttpStatus.OK)
-//                .body(map);
-//
-//    }
-
 
 }
