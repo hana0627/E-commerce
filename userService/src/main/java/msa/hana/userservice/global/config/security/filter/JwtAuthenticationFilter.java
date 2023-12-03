@@ -27,6 +27,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private final AuthenticationManager authenticationManager;
     private final Environment env;
+
+    private String userId;
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         ObjectMapper om = new ObjectMapper();
@@ -35,7 +37,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             UserAccount user = om.readValue(request.getInputStream(), UserAccount.class);
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
             Authentication auth = authenticationManager.authenticate(token);
-            response.addHeader("userId", user.getUserId());
+            response.addHeader("username", user.getEmail());
+            response.addHeader("userId",user.getUserId());
             return token;
         }catch(IOException e) {
             throw new RuntimeException(e);
@@ -46,7 +49,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         String jwtToken = JWT.create()
-                .withSubject("cos토큰") //이름
+                .withSubject("JWT토큰") //이름
                 .withExpiresAt(new Date(System.currentTimeMillis() + Long.parseLong(env.getProperty("jwt.expiration_time")))) //만료시간
                 .withClaim("username", authResult.getName())
                 .withClaim("password", authResult.getPrincipal().toString())

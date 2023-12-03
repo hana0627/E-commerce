@@ -45,6 +45,7 @@ public class UserController {
 
     @GetMapping("/welcome")
     public String welcome() {
+        System.out.println("여기를 왜못와??");
         return greeting.getMessage();
     }
 

@@ -43,6 +43,7 @@ public class SecurityConfig {
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .antMatchers("/users/**").permitAll()
                         .antMatchers("/health_check").permitAll()
+                        .antMatchers("/welcome").permitAll()
                         .antMatchers("/**").authenticated()
                 )
                 .authenticationProvider(authenticationProvider)

@@ -53,6 +53,7 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie #POST 요청이 들어오면 헤더값을 삭제(새로운 요청처럼 인식하기 위함)
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+            - JwtAuthorizationFilter
 
 
         - id: user-service
@@ -73,3 +74,7 @@ spring:
           uri: lb://ORDER-SERVICE #등록된 MicroService 이름
           predicates: # 조건절과 같은 의미
             - Path=/order-service/** #Path 정보를 지정
+
+
+jwt:
+  secret: user_token
