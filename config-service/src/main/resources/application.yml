@@ -1,0 +1,10 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    server:
+      git:
+        url: file://C:\hana\study\E-commerce_config
