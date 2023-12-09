@@ -5,6 +5,7 @@ spring:
   application:
     name: config-server
   cloud:
-    server:
-      git:
-        url: file://C:\hana\study\E-commerce_config
+    config:
+      server:
+        git:
+          uri: file:///C:/hana/study/E-commerce/ecommerce.yml
