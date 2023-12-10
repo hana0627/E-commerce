@@ -1,11 +1,19 @@
 server:
   port: 0
 
-
+logging:
+  level:
+    org.springframework.security: DEBUG
 
 spring:
   application:
     name: user-service
+
+  cloud:
+    config:
+      name: ecommerce.yml # yml 파일명 앞부분
+  config:
+    import: optional:configserver:http://localhost:8888 # 구성정보 설정
 
   datasource:
     url: ${MYSQL_URL}
@@ -35,6 +43,6 @@ greeting:
   message: Welcome to the Simple E-commerce
 
 
-jwt:
-  expiration_time: 86400000
-  secret: user_token
+#jwt:
+#  expiration_time: 86400000
+#  secret: user_token

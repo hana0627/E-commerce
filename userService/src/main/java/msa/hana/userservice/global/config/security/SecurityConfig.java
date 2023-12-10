@@ -42,8 +42,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .antMatchers("/users/**").permitAll()
-                        .antMatchers("/health_check").permitAll()
-                        .antMatchers("/welcome").permitAll()
                         .antMatchers("/**").authenticated()
                 )
                 .authenticationProvider(authenticationProvider)

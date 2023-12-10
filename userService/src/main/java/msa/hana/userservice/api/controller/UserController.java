@@ -40,12 +40,15 @@ public class UserController {
 
     @GetMapping("/health_check")
     public String status() {
-        return "It's Working in User Service on PORT " + env.getProperty("local.server.port");
+        return "It's Working in User Service"
+                +",port(local.server.port) = " + env.getProperty("local.server.port") // application.yml
+                +",port(server.port) = " + env.getProperty("server.port")
+                +",token secret = " + env.getProperty("jwt.secret")
+                +",token expiration time = " + env.getProperty("jwt.expiration_time");
     }
 
     @GetMapping("/welcome")
     public String welcome() {
-        System.out.println("여기를 왜못와??");
         return greeting.getMessage();
     }
 
@@ -65,8 +68,6 @@ public class UserController {
 
     @GetMapping("/users")
     public ResponseEntity<List<UserResponse>> users() {
-        System.out.println("UserController.users");
-
         List<UserResponse> result = userService.getUsers();
 
         return ResponseEntity
@@ -76,8 +77,6 @@ public class UserController {
 
     @GetMapping("/users/{userId}")
     public ResponseEntity<UserResponse> users(@PathVariable("userId") String userId) {
-        System.out.println("UserController.users");
-
         UserResponse result = userService.findUser(userId);
 
         return ResponseEntity
