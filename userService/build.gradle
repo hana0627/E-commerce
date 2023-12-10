@@ -34,6 +34,9 @@ dependencies {
 	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api
 	implementation group: 'com.auth0', name: 'java-jwt', version: '3.10.3'
 
+	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-config'
+//	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap'
+
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.mysql:mysql-connector-j'
