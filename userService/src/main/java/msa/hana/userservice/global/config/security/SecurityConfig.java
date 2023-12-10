@@ -41,7 +41,10 @@ public class SecurityConfig {
                 .csrf(c -> c.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                        .antMatchers("/health_check").permitAll()
+                        .antMatchers("/welcome").permitAll()
                         .antMatchers("/users/**").permitAll()
+                        .antMatchers("/actuator/**").permitAll()
                         .antMatchers("/**").authenticated()
                 )
                 .authenticationProvider(authenticationProvider)

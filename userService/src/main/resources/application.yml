@@ -46,3 +46,8 @@ greeting:
 #jwt:
 #  expiration_time: 86400000
 #  secret: user_token
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans #config 서버에서 가지고 와야할 정보
