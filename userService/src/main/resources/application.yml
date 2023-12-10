@@ -8,7 +8,9 @@ logging:
 spring:
   application:
     name: user-service
-
+#  cloud:
+#    bootstrap:
+#      enabled: true
   cloud:
     config:
       name: ecommerce.yml # yml 파일명 앞부분

@@ -42,9 +42,9 @@ public class UserController {
     public String status() {
         return "It's Working in User Service"
                 +",port(local.server.port) = " + env.getProperty("local.server.port") // application.yml
-                +",port(server.port) = " + env.getProperty("server.port")
-                +",token secret = " + env.getProperty("jwt.secret")
-                +",token expiration time = " + env.getProperty("jwt.expiration_time");
+                +"<br>port(server.port) = " + env.getProperty("server.port")
+                +"<br>token secret = " + env.getProperty("jwt.secret")
+                +"<br>token expiration time = " + env.getProperty("jwt.expiration_time");
     }
 
     @GetMapping("/welcome")

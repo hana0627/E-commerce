@@ -8,4 +8,5 @@ spring:
     config:
       server:
         git:
-          uri: file:///C:/hana/study/E-commerce/ecommerce.yml
+          uri: https://github.com/hana0627/E-commerce
+#          uri: file:///C:/hana/study/E-commerce/ecommerce.yml
